@@ -3,20 +3,22 @@
 <html>
     <head>
         <title> THIRTY ONE </title>
-        <link rel="stylesheet" href="frameCSS.css" />
+        <link rel="stylesheet" href="startGame.css" />
     </head>
     <body>
         <h1 id="banner">
             LOREM IPSUM
         </h1>
-        <div>
-
+        <div id="startButton" onclick="beginGame();">
+            <img src="imgAsset/back-red-75-3.png" />
+            <div id="startText"> START GAME </div>
         </div>
-        <div>
-
-        </div>
-        <div>
-
+        <div id="instruct">
+            Instructions: <br/>
+            Get a hand totaling 31! Each turn you can draw a card from the deck or discard pile and discard a card! 
+            Knock when you're satisfied with your hand. Player with the lowest hand value gets a strike at the end of each round 
+            If a player gets 31, the round instantly ends and all other plays get a strike. If a knocking player has the 
+            lowest hand value, that player gets two strikes. Players with three strikes are kicked out. 
         </div>
     </body>
 </html>
