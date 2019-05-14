@@ -4,6 +4,11 @@
     <head>
         <title> THIRTY ONE </title>
         <link rel="stylesheet" href="startGame.css" />
+        <script>
+            function startGame() {
+                window.open("game.html","_self");
+            }
+        </script>
     </head>
     <body>
         <h1 id="banner">
@@ -11,7 +16,7 @@
         </h1>
         <div id="startButton" onclick="beginGame();">
             <img src="imgAsset/back-red-75-3.png" />
-            <div id="startText"> START GAME </div>
+            <div id="startText" onclick="startGame();"> START GAME </div>
         </div>
         <div id="instruct">
             Instructions: <br/>
