@@ -1,4 +1,5 @@
 
+/* calc is so good it feels cheaty */
 
 #gameMat img {
     width:6.944vw;
@@ -28,9 +29,9 @@
 }
 
 #playerOneHand {
-    height:100vh;
+    height:30vh;
     position:fixed;
-    line-height:100vh;
+    margin-top:calc(50vh - 15vw);
 }
 
 #playerTwoHand {
@@ -40,9 +41,9 @@
 }
 
 #playerThreeHand {
-    height:100vh;
+    height:30vh;
     position:fixed;
-    line-height:100vh;
+    margin-top:calc(50vh - 15vw);
     right:0px;
 }
 
@@ -51,9 +52,19 @@
     height:6.944vw;
 }
 
+.widerCard{
+    width:12vw;
+    height:8.3328vw;
+}
+
 .tallCard {
     width:6.944vw;
     height:10vw;
+}
+
+.tallerCard {
+    width:8.3328vw;
+    height:12vw;
 }
 
 
