@@ -4,16 +4,26 @@ function init() {
     playerZ = document.getElementById("playerHand");
     cardDrop = document.getElementById("disco");
 
-    updatePlayerHand();
+    updateScreen();
 
     //set a dealer
     dealA = drawRando(0,3);
+    playerTurn = dealA;
 
+
+    
 }
 
 function updateScreen() {
     updatePlayerHand();
-    cardDrop.src = discoPile[0].img;
+    try {
+        cardDrop.src = discoPile[0].img;
+        cardDrop.style.display = "block";
+    } catch(err) {
+        cardDrop.style.display = "none";
+        cardDrop.src = "";
+    }
+    
 }
 
 function updatePlayerHand() {

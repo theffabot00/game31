@@ -46,12 +46,21 @@ for (var aUser = 0; aUser != players.length; aUser++) {
         players[aUser].push(drawPile.shift());
     }
 }
-
+players[1].prototype.bot = function() {
+    wildcard();
+}
+players[2].prototype.bot = function() {
+    wildcard(2);
+}
+players[3].prototype.bot = function() {
+    wildcard(3);
+}
 //i dont know what to do here;
 //I dont hink its most effective to create a new set of objects for ai
 
 function wildcard(ind = 1) {
-    
+    playerTurn++;
+    if (checkHandVal(ind) != 30) {
         var pile = drawRando(0,1);
         switch(pile) {
             case(0):
@@ -63,7 +72,12 @@ function wildcard(ind = 1) {
         }
         var discord = drawRando(0,3);
         queueAction(ind, "r" ,pile);
-        queueAction(ind, "a", , drawRando(0,3));
+        queueAction(ind, "a", "d", drawRando(0,3));
+    } else {
+        knock();
+    }
+    playerTurn = playerTurn % 4;
+    players[playerTurn].bot();
 }
 
 function checkHandVal(someStack) {

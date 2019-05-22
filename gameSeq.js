@@ -1,6 +1,7 @@
 
 var actions = [];
 
+
 //reads like
 //player [player] [remove from/add to] [facedown/discard] [some card (applicable to discard only)]
 function queueAction(player, action, stack, card) {
@@ -27,4 +28,5 @@ var globalClock = setInterval( function() {
         }
 
     }
+    
 }, 900);
