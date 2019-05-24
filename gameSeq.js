@@ -3,7 +3,7 @@ var actions = [];
 
 
 //reads like
-//player [player] [remove from/add to] [facedown/discard] [some card (applicable to discard only)]
+//player [player] [r emove from/add to] [facedown pile/discard pile] [some card (applicable to discard only)]
 function queueAction(player, action, stack, card) {
     //each action is two actions
     actions.push({
@@ -30,3 +30,7 @@ var globalClock = setInterval( function() {
     }
     
 }, 900);
+
+function notif() {
+    
+}

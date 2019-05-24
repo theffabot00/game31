@@ -47,6 +47,17 @@
     right:0px;
 }
 
+#comet {
+    position:fixed;
+    background-image:url("imgAsset/table.png");
+    padding:8px;
+    font-size:16pt;
+    width:100%;
+    color:gold;
+    text-align:center;
+    margin-top:12vh;
+}
+
 .wideCard {
     width:10vw;
     height:6.944vw;

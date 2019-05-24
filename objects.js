@@ -46,21 +46,13 @@ for (var aUser = 0; aUser != players.length; aUser++) {
         players[aUser].push(drawPile.shift());
     }
 }
-players[1].prototype.bot = function() {
-    wildcard();
-}
-players[2].prototype.bot = function() {
-    wildcard(2);
-}
-players[3].prototype.bot = function() {
-    wildcard(3);
-}
 //i dont know what to do here;
 //I dont hink its most effective to create a new set of objects for ai
 
-function wildcard(ind = 1) {
+
+Stack.prototype.wildcard = function(ind = 1) {
     playerTurn++;
-    if (checkHandVal(ind) != 30) {
+    if (checkHandVal(ind)  < 30) {
         var pile = drawRando(0,1);
         switch(pile) {
             case(0):
@@ -74,10 +66,13 @@ function wildcard(ind = 1) {
         queueAction(ind, "r" ,pile);
         queueAction(ind, "a", "d", drawRando(0,3));
     } else {
+        //as of writing this, this hasnt been made yet. pls make @futureme
         knock();
     }
     playerTurn = playerTurn % 4;
-    players[playerTurn].bot();
+    if (playerTurn) {
+        players[playerTurn].bot();
+    }
 }
 
 function checkHandVal(someStack) {
