@@ -6,6 +6,30 @@
         <script src="objects.js" ></script>
         <script src="reflection.js"> </script>
         <script src="gameSeq.js"> </script>
+        <script>
+            //i know this isnt likely the best place to put this
+            //but its a function that directly interacts with the user
+            //so id like to keep it closer to the "front"
+            function playerDrawsACard(pileName) {
+                if (playerTurn == 0 && players[0].length == 3) {
+                    //this gets around the pesky 900ms delay
+                    interpretAction({
+                        "u":0, 
+                        "a":"r", 
+                        "s":pileName
+                    });
+                }
+            }
+            function playerDiscosACard() {
+                if (playerTurn == 0 && players[0].length == 4) {
+                    //this should be the html element calling
+                    var someC = players[0].splice(this.cInx,1);
+                    discoPile.unshift(someC[0]);
+                    updateScreen();
+                }
+
+            }
+        </script>
     </head>
     <body onload="init();">
         <!-- cardback0 is tall, cardback1 is wide -->
@@ -32,11 +56,11 @@
         <div id="gameMat">
             <div> 
                 <!-- facedown -->
-                <img src="imgAsset/cardBack0.png" id="fd">
+                <img src="imgAsset/cardBack0.png" id="fd" onclick="playerDrawsACard('f')">
             </div>
             <div> 
                 <!-- disco -->
-                <img src="imgAsset/1-1.png" id="disco">
+                <img src="imgAsset/1-1.png" id="disco" onclick="playerDrawsACard('d')">
             </div>
         </div>
         <div id="comet">

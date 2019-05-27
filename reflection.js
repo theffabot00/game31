@@ -9,13 +9,11 @@ function init() {
     //set a dealer
     dealA = drawRando(0,3);
     playerTurn = dealA;
-
-
-    
 }
 
 function updateScreen() {
     updatePlayerHand();
+    //im going to play on a really large gamble and pray that the deck never runs otu of cards
     try {
         cardDrop.src = discoPile[0].img;
         cardDrop.style.display = "block";
@@ -34,9 +32,10 @@ function updatePlayerHand() {
         var nImg = document.createElement("img");
         nImg.src = players[0][n].img;
         nImg.classList.add("tallCard");
+        // cInx is a "parameter"
+        nImg.cInx = n;
+        nImg.addEventListener("click", playerDiscosACard);
         playerZ.appendChild(nImg);
     }
 }
-
-
 
