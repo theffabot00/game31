@@ -58,26 +58,40 @@
     margin-top:12vh;
 }
 
+/* in order: caution on 1, rando on 2, and aggro in seat 3 */
+#bIlight {
+    box-shadow:0px 0px 8px 8px skyblue;
+}
+
+#gIlight {
+    box-shadow:0px 0px 8px 8px lime;
+}
+
+#rIlight {
+    box-shadow:0px 0px 8px 8px crimson;
+}
+
 .wideCard {
     width:10vw;
     height:6.944vw;
 }
 
-.widerCard{
+/* .widerCard{
     width:12vw;
     height:8.3328vw;
-}
+} */
 
 .tallCard {
     width:6.944vw;
     height:10vw;
 }
 
-.tallerCard {
+/* .tallerCard {
     width:8.3328vw;
     height:12vw;
-}
+} */
 
+/* this is FOR THE PLAYER'S USE */
 img:hover {
     /* gotta flex that box shadow when i can */
     box-shadow:0px 0px 8px 8px gold;

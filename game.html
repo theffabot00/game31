@@ -11,6 +11,7 @@
             //but its a function that directly interacts with the user
             //so id like to keep it closer to the "front"
             function playerDrawsACard(pileName) {
+                updateDisco();
                 if (playerTurn == 0 && players[0].length == 3) {
                     //this gets around the pesky 900ms delay
                     interpretAction({
@@ -19,15 +20,20 @@
                         "s":pileName
                     });
                 }
+
+                updatePlayerHand();
             }
             function playerDiscosACard() {
+                updateDisco();
                 if (playerTurn == 0 && players[0].length == 4) {
                     //this should be the html element calling
                     var someC = players[0].splice(this.cInx,1);
                     discoPile.unshift(someC[0]);
                     updateScreen();
                 }
-
+                pushTurn();
+                players[1].bot();
+                updateScreen();
             }
         </script>
     </head>

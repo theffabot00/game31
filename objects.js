@@ -45,22 +45,29 @@ for (var aUser = 0; aUser != players.length; aUser++) {
     for (var n = 0; n != 3; n++) {
         players[aUser].push(drawPile.shift());
     }
+    players[aUser].seat = aUser;
 }
 //i dont know what to do here;
 //I dont hink its most effective to create a new set of objects for ai
 
-
-Stack.prototype.wildcard = function(ind = 1) {
-    playerTurn++;
-    if (checkHandVal(ind)  < 30) {
-        var pile = drawRando(0,1);
-        switch(pile) {
-            case(0):
-                pile = "f";
-                break;
-            case(1):
-                pile = "d";
-                break;
+//this will serve as the generic ai because its the easiest
+Stack.prototype.wildcard = function() {
+    //really hoping this refers to the stack that calls it
+    let ind = this.seat;
+    var pile = 0;
+    if (checkHandVal(players[ind])  < 30) {
+        if (discoPile.length != 0) {
+            pile = drawRando(0,1);
+            switch(pile) {
+                case(0):
+                    pile = "f";
+                    break;
+                case(1):
+                    pile = "d";
+                    break;
+            }
+        } else {
+            pile = "f";
         }
         var discord = drawRando(0,3);
         queueAction(ind, "r" ,pile);
@@ -69,14 +76,21 @@ Stack.prototype.wildcard = function(ind = 1) {
         //as of writing this, this hasnt been made yet. pls make @futureme
         knock();
     }
-    playerTurn = playerTurn % 4;
+    pushTurn();
     if (playerTurn) {
         players[playerTurn].bot();
     }
 }
 
+
+//some mroe advanced bots?
+players[1].bot = Stack.prototype.wildcard;
+players[2].bot = Stack.prototype.wildcard;
+players[3].bot = Stack.prototype.wildcard;
+
+
 function checkHandVal(someStack) {
-    var vals = someStack.getSum;
+    var vals = someStack.getSum();
     var max = 0;
     var soit = -1;
     for (var n = 0; n != vals.length; n++) {
