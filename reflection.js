@@ -1,20 +1,5 @@
 
 
-function init() {
-    playerZ = document.getElementById("playerHand");
-    cardDrop = document.getElementById("disco");
-
-    updateScreen();
-
-    //set a dealer
-    dealA = drawRando(0,3);
-    playerTurn = dealA;
-
-    //kick off the game
-    if (playerTurn)
-        players[playerTurn].bot();
-}
-
 function updateScreen() {
     updatePlayerHand();
     updateDisco();

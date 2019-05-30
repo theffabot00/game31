@@ -59,16 +59,20 @@
 }
 
 /* in order: caution on 1, rando on 2, and aggro in seat 3 */
-#bIlight {
+.bIlight {
     box-shadow:0px 0px 8px 8px skyblue;
 }
 
-#gIlight {
+.gIlight {
     box-shadow:0px 0px 8px 8px lime;
 }
 
-#rIlight {
+.rIlight {
     box-shadow:0px 0px 8px 8px crimson;
+}
+/* safety case */
+.yIlight {
+    box-shadow:0px 0px 8px 8px gold;
 }
 
 .wideCard {
