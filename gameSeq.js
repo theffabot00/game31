@@ -13,6 +13,7 @@ function init() {
     //set a dealer
     dealA = drawRando(0,3);
     playerTurn = dealA;
+    console.log(playerTurn);
 
     //kick off the game
     if (playerTurn)
@@ -72,64 +73,85 @@ globalClock = setInterval( function() {
     }
     //im not sure why im doing this other than my brain tells me to
     miniTaskClock = setInterval(function() {
-       
-        //minitasks are in codes such that
-        //the first digit represents the player (digit 4 means the game mat)
-        //the second digit represents the card number in that player's hand (if the previous digit is 4, 0 is the facedown pile and 1 is the discard pile)
-        var code = miniTask.shift();
-        var clas = "";
-        switch (playerTurn) {
-            case(1):
+        if (miniTask.length) {
+            //minitasks are in codes such that
+            //the first digit represents the player (digit 4 means the game mat)
+            //the second digit represents the card number in that player's hand (if the previous digit is 4, 0 is the facedown pile and 1 is the discard pile)
+            //due to unforeseen circumstances, i need a third digit to specify the color
+            //this project is really quickly falling apart so im adding a 4th digit for whether or not i remove the highlighted card
+            var code = miniTask.shift();
+            var clas = "";
+            var numa = parseInt(code.charAt(0));
+            var numb = parseInt(code.charAt(1));
+            var col = parseInt(code.charAt(2));
+            if (col == 1) {
                 clas = "bIlight";
-                break;
-            case(2):
+                console.log(1);
+            } 
+            if (col == 2) {
                 clas = "gIlight";
-                break;
-            case(3):
-                clas = "rIlight";
-                break;
-            default:
-                clas = "yIlight";
-                break;
-        }
-        //oof 
-        cleanCards();
-        //the regret is sinking in now
-        var numa = parseInt(code.charAt(0));
-        var numb = parseInt(code.charAt(1));
-        if (numb == 3 && onscreenImages[numa].length != 4) {
-            var nImg = document.createElement("img");
-            if (numa % 2 == 1) {
-                nImg.src = "imgAsset/cardBack1.png";
-                nImg.className += " wideCard";
-            } else {
-                nImg.src = "imgAsset/cardBack0.png";
-                nImg.className += " tallCard";
+                console.log(2);
             }
-            onscreenImages[numa].push(nImg);
+            if (col == 3) {
+                clas = "rIlight";
+                console.log(3);
+            }
+            console.log("PLAYER TURN IS/WAS " + col);
+            //oof 
+            cleanCards();
+            //the regret is sinking in now
+
+            if (numb == 3 && onscreenImages[numa].length != 4) {
+                var nImg = document.createElement("img");
+                if (numa % 2 == 1) {
+                    nImg.src = "imgAsset/cardBack1.png";
+                    nImg.className += " wideCard";
+                } else {
+                    nImg.src = "imgAsset/cardBack0.png";
+                    nImg.className += " tallCard";
+                }
+                onscreenImages[numa].push(nImg);
+                //THIS IS DISPLAY STUFF THAT I CANT PUT INTO THE DISPLAY FILE
+                document.getElementsByTagName("div")[numa].appendChild(nImg);
+            }
+            if (code.charAt(3) != "") {
+                console.log("found " + code.charAt(3));
+                var aDiv = document.getElementsByTagName("div")[col];
+                var sImgs = aDiv.getElementsByTagName("img");
+                console.log(sImgs);
+                aDiv.removeChild(sImgs[3]);
+                updateDisco();
+            }
+            console.log(onscreenImages[numa][numb].classList);
+            onscreenImages[numa][numb].classList.add(clas);
         }
-        onscreenImages[numa][numb].classList.add(clas);
-    },500)
-}, 1100);
+    },1000)
+}, 2200);
 
 
 
 function interpretAction(bundle) {
     if (bundle.a == "r") {
         if (bundle.s == "f") {
-            miniTask.push("40");
+            miniTask.push("40" + bundle.u);
             players[bundle.u].push(drawPile.shift());
         } else {
-            miniTask.push("41");
+            miniTask.push("41" + bundle.u);
             players[bundle.u].push(discoPile.shift());
         }
-        miniTask.push(bundle.u.toString() + "3");
+        miniTask.push(bundle.u.toString() + "3" + bundle.u);
+        updateDisco();
     } else {
-        miniTask.push(bundle.u.toString() + bundle.c.toString());
+        miniTask.push(bundle.u.toString() + bundle.c.toString() + bundle.u);
+        miniTask.push("41" + bundle.u + "k");
         discoPile.unshift(players[bundle.u].splice(bundle.c,1)[0]);
     }
-    console.log(bundle);
-    updateScreen();
+    if (bundle.u == 0) {
+        miniTask.pop();
+        updateScreen();
+    }
+    //i specifically had to move this
+    
 }
 
 function notif() {
