@@ -11,7 +11,8 @@ function init() {
     updateScreen();
 
     //set a dealer
-    dealA = drawRando(0,3);
+    // dealA = drawRando(0,3);
+    dealA = 0;
     playerTurn = dealA;
     console.log(playerTurn);
 
@@ -113,6 +114,7 @@ globalClock = setInterval( function() {
                 onscreenImages[numa].push(nImg);
                 //THIS IS DISPLAY STUFF THAT I CANT PUT INTO THE DISPLAY FILE
                 document.getElementsByTagName("div")[numa].appendChild(nImg);
+                updateDisco();
             }
             if (code.charAt(3) != "") {
                 console.log("found " + code.charAt(3));
@@ -120,10 +122,13 @@ globalClock = setInterval( function() {
                 var sImgs = aDiv.getElementsByTagName("img");
                 console.log(sImgs);
                 aDiv.removeChild(sImgs[3]);
+                //this is cheating because im just popping a random card off
+                onscreenImages[col].pop();
                 updateDisco();
             }
-            console.log(onscreenImages[numa][numb].classList);
             onscreenImages[numa][numb].classList.add(clas);
+        } else {
+            cleanCards();
         }
     },1000)
 }, 2200);
@@ -140,13 +145,14 @@ function interpretAction(bundle) {
             players[bundle.u].push(discoPile.shift());
         }
         miniTask.push(bundle.u.toString() + "3" + bundle.u);
-        updateDisco();
     } else {
         miniTask.push(bundle.u.toString() + bundle.c.toString() + bundle.u);
         miniTask.push("41" + bundle.u + "k");
         discoPile.unshift(players[bundle.u].splice(bundle.c,1)[0]);
+
     }
     if (bundle.u == 0) {
+        miniTask.pop();
         miniTask.pop();
         updateScreen();
     }

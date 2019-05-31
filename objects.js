@@ -22,7 +22,14 @@ Stack.prototype.shuffle = function() {
 Stack.prototype.getSum = function() {
     var sumBySuit = [0, 0, 0, 0];
     for (var n = 0; n != this.length; n++) {
-        sumBySuit[this[n].suit]++;
+        var baseVal = this[n].val;
+        if (baseVal > 10) {
+            baseVal = 10;
+        } 
+        if (baseVal == 1) {
+            baseVal = 11;
+        }
+        sumBySuit[this[n].suit] += baseVal;
     }
     return(sumBySuit);
 }
