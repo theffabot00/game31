@@ -1,3 +1,42 @@
+/*
+ * Second most important file here!
+ * this is responsible for the sequence of the game
+ *      (and has inadvertently become the file thats partially responsible for display)
+ *      (because i did a really big oopsie and liked the front end to the back end)
+ *      (so ill try explaining it here at 12am on 5/30 (or actually 5/31))
+ *      (all bots make their actions instantly, but the display and their animations/glows happen on a clock)
+ *      (so a lot of the interactions the user makes are at the mercy of the clock that does the displaying)
+ * 
+ * FILE FORMAT
+ * init() does the initializing (who goes first and then starts the game)
+ * queueaction() translates an action into an object (puts the objeect into an array)
+ * theres a clock and a clock in that clock; incredibly clunky and inefficient, but the point is, 
+ *      the first clock processes the above action and calls the interpret action
+ *      ****INTERPRET ACTION IS REALLY IMPORTANT    
+ *              IT BREAKS THE ACTION INTO 2 MORE STEPS AND PUTS THOSE STEPS INTO ANOTHER ARRAY
+ *      the second clock takes the smaller instructions (3-4 characters) and determines what cards on the board
+ *      it should highlight and in what color. It also determines when the screen should update and when it should spit out new 
+ *      cards (simulate drawing a card)
+ *      NOTE: youll notice a lot of exception making, expecially with plaayer 0; that's intentional;
+ * clean cards just verifies that all highlights disappear
+ * push turns is actually unnecessary; it just makes sure the game moves along
+ * 
+ * i know i should really be doing this somewhere else, but i dont have a rubber ducky, so im talking to a keyboard
+ * TODO 
+ * KNOCK ON WOOD        (todo 5/31-6/1)
+ * STRIKE SYSTEM        (todo 6/1 (it doesnt seem that hard))
+ * CARD REVEAL          (todo 6/2 - 6/4)
+ * PLAYER REMOVAL       (todo 6/4)
+ *      
+ * i dont intend on doing bots at this given moment because i want to get to level 5 before the end of the year
+ * 
+ * 
+*/ 
+
+
+
+
+
 
 actions = [];
 miniTask = [];
