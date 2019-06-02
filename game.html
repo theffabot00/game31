@@ -18,7 +18,7 @@
                         "s":pileName
                     });
                 }
-
+                startEnd.style.display = "none";
                 updateScreen();
             }
             function playerDiscosACard() {
@@ -30,8 +30,6 @@
                     discoPile.unshift(someC[0]);
 
                     pushTurn();
-                    // alert("IT IS NOW " + playerTurn + "'S TURN");
-                    players[1].bot();
                     updateScreen();
                     //bad code alert! this is here just to stop the player from tryign to win without animations
                     miniTask.push("123");
@@ -70,11 +68,14 @@
                 <img src="imgAsset/1-1.png" id="disco" onclick="playerDrawsACard('d')">
             </div>
         </div>
+        <!-- as of right now, i have gone back against this idea; the color highlights seem to be good enough
         <div id="comet">
-            <!-- symbolic because its a butchered version of comment AND the box is supposed to appear once in a while-->
+            <!-- symbolic because its a butchered version of comment AND the box is supposed to appear once in a while
             LOREM IPSUM <br/>
-
-
+        </div>
+        -->
+        <div onclick="knock(0)" id="endRound">
+            KNOCK
         </div>
     </body>
 </html>

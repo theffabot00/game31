@@ -41,7 +41,8 @@ Stack.prototype.wildcard = function() {
     //really hoping this refers to the stack that calls it
     let ind = this.seat;
     var pile = 0;
-    if (checkHandVal(players[ind])  < 20) {
+    //tbh im not actually sure why its an or here, but it seems to produce the results i want
+    if (checkHandVal(players[ind])  < 15 || !canKnock) {
         if (discoPile.length != 0) {
             pile = drawRando(0,1);
             switch(pile) {
@@ -58,13 +59,10 @@ Stack.prototype.wildcard = function() {
         var discord = drawRando(0,3);
         queueAction(ind, "r" ,pile);
         queueAction(ind, "a", "d", drawRando(0,3));
+        pushTurn();
     } else {
-        //as of writing this, this hasnt been made yet. pls make @futureme
-        knock();
-    }
-    pushTurn();
-    if (playerTurn) {
-        players[playerTurn].bot();
+        alert(this.seat + " HAD KNOCKED");
+        knock(ind);
     }
 }
 Stack.prototype.shuffle = function() {
@@ -134,6 +132,9 @@ function rebootBoard() {
         }
         players[aUser].seat = aUser;
     }
+
+    //not quite belonging here, but it belongs here
+    knockingPlayer = -6;
 }
 
 

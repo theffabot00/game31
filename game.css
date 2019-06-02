@@ -58,21 +58,47 @@
     margin-top:12vh;
 }
 
+#endRound {
+    position:absolute;
+    bottom:8vh;
+    right:4vw;
+    width:16vw;
+    height:8vh;
+    background-color:rgb(131, 0, 0);
+    line-height:8vh;
+    text-align:center;
+
+    border-radius:8px;
+    /*its not a project by me unless there are dumb round borders */
+    border-style:outset;
+    border-color:gold;
+    border-width:8px;
+
+    font-size:2.718rem;
+    color:rgb(255, 196, 0);
+    cursor:pointer;
+}
+
 /* in order: caution on 1, rando on 2, and aggro in seat 3 */
 .bIlight {
     box-shadow:0px 0px 8px 8px skyblue;
 }
 
-.gIlight {
-    box-shadow:0px 0px 8px 8px lime;
+.pIlight {
+    box-shadow:0px 0px 8px 8px purple;
 }
 
 .rIlight {
-    box-shadow:0px 0px 8px 8px crimson;
+    box-shadow:0px 0px 8px 8px violet;
 }
 /* safety case */
 .yIlight {
     box-shadow:0px 0px 8px 8px gold;
+}
+
+/* knock knock mf */
+.setCard {
+    box-shadow:0px 0px 8px 8px lime;
 }
 
 .wideCard {
