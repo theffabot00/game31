@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title> cardGame 31 </title>
+        <title> 三十一 </title>
         <link rel="stylesheet" href="game.css" />
         <script src="objects.js" ></script>
         <script src="reflection.js"> </script>
@@ -11,7 +11,7 @@
             //but its a function that directly interacts with the user
             //so id like to keep it closer to the "front"
             function playerDrawsACard(pileName) {
-                if (!miniTask.length && players[0].length == 3 && playerTurn == 0) {
+                if (playerTurn == 0) {
                     interpretAction({
                         "u":0, 
                         "a":"r", 
@@ -37,25 +37,25 @@
             }
         </script>
     </head>
-    <body onload="rebootBoard();init();">
-        <!-- cardback0 is tall, cardback1 is wide -->
-        <div id="playerHand"> 
-            <img src="imgAsset/1-1.png" class="tallCard">
+    <body onload="rebootBoard();inYourSights();reflectedInit();">
+        <!-- grill me for these id names -->
+        <div id="u0"> 
+            <img src="imgAsset/1-1.png" class="card">
         </div>
-        <div id="playerOneHand">
-            <img src="imgAsset/cardBack1.png" class="wideCard"> <br/>
-            <img src="imgAsset/cardBack1.png" class="wideCard"> <br/>
-            <img src="imgAsset/cardBack1.png" class="wideCard">
+        <div id="u1">
+            <img src="imgAsset/cardBack0.png" class="card"> <br clear="all"/>
+            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card">
         </div>
-        <div id="playerTwoHand">
-            <img src="imgAsset/cardBack0.png" class="tallCard"> 
-            <img src="imgAsset/cardBack0.png" class="tallCard"> 
-            <img src="imgAsset/cardBack0.png" class="tallCard">
+        <div id="u2">
+            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card">
         </div>
-        <div id="playerThreeHand">
-            <img src="imgAsset/cardBack1.png" class="wideCard"> <br/>
-            <img src="imgAsset/cardBack1.png" class="wideCard"> <br/>
-            <img src="imgAsset/cardBack1.png" class="wideCard">
+        <div id="u3">
+            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card">
         </div>
         <!-- not really a game mat, but its the center of the table -->
         <div id="gameMat">

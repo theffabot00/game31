@@ -21,30 +21,36 @@
     line-height:calc(100vh - 20vw);
 }
 
-#playerHand {
+#u0 {
     width:100%;
     position:fixed;
     bottom:0px;
     text-align:center;
 }
 
-#playerOneHand {
-    height:30vh;
+#u1 {
+    
     position:fixed;
-    margin-top:calc(50vh - 15vw);
+    transform:rotate(90deg);
+    top:calc(50vh - 6.944vw * 1.5); 
+    /* i was about to praise css for still recognizing top as top after the rotation */
+    /* but left is still kinda relative to the post translform location
+    which means i need a negative left */
+    left:calc((-1.5 * 6.944vw) + 5vw);
 }
 
-#playerTwoHand {
+#u2 {
     width:100%;
     position:fixed;
     text-align:center;
 }
 
-#playerThreeHand {
-    height:30vh;
+#u3 {
     position:fixed;
-    margin-top:calc(50vh - 15vw);
-    right:0px;
+    transform:rotate(90deg);
+    top:calc(50vh - 6.944vw * 1.5); 
+
+    right:calc((-1.5 * 6.944vw) + 5vw);
 }
 
 #comet {
@@ -101,17 +107,18 @@
     box-shadow:0px 0px 8px 8px lime;
 }
 
-.wideCard {
+/* .wideCard {
     width:10vw;
     height:6.944vw;
-}
+}  */
 
 /* .widerCard{
     width:12vw;
     height:8.3328vw;
 } */
 
-.tallCard {
+.card {
+    display:inline-block;
     width:6.944vw;
     height:10vw;
 }
