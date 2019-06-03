@@ -103,6 +103,7 @@ function updateHand(seat, reveal) {
 
 // LETS MAKE THE HIGHLIGHTING SHENANIGANS LIVE HERE
 
+//i 100% used appraise wrong here
 function appraiseCard(user, location, time = 1000) {
     //from the old code!
     //location comes in the form of an object 

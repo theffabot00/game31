@@ -11,28 +11,24 @@
             //but its a function that directly interacts with the user
             //so id like to keep it closer to the "front"
             function playerDrawsACard(pileName) {
-                if (playerTurn == 0) {
-                    interpretAction({
-                        "u":0, 
-                        "a":"r", 
-                        "s":pileName
-                    });
+                if (playerTurn == 0 && players[0].length != 4) {
+                    if (pileName) {
+                        if (!discoPile.length) 
+                            return;
+                        players[0].push(discoPile.shift());
+                    } else {
+                        players[0].push(drawPile.shift());
+                    }
+                    updateHand(0,true);
                 }
-                startEnd.style.display = "none";
-                updateScreen();
             }
             function playerDiscosACard() {
                 if (playerTurn == 0 && players[0].length == 4) {
-                    //this should be the html element calling
-                    var someC = players[0].splice(this.cInx,1);
-                    //its really unclear right now because functions are calling each other through files
-                    //but this.cInx is the card (that got clicked)'s index in hand
-                    discoPile.unshift(someC[0]);
-
+                    var inx = this.cInx;
+                    discoPile.unshift(players[0].splice(inx,1)[0]);
+                    updateDisco();
+                    updateHand(0,true);
                     pushTurn();
-                    updateScreen();
-                    //bad code alert! this is here just to stop the player from tryign to win without animations
-                    miniTask.push("123");
                 }
             }
         </script>
@@ -43,29 +39,29 @@
             <img src="imgAsset/1-1.png" class="card">
         </div>
         <div id="u1">
-            <img src="imgAsset/cardBack0.png" class="card"> <br clear="all"/>
-            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card"> 
+            <img src="imgAsset/cardBack0.png" class="card"> 
             <img src="imgAsset/cardBack0.png" class="card">
         </div>
         <div id="u2">
-            <img src="imgAsset/cardBack0.png" class="card"> <br/>
-            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card"> 
+            <img src="imgAsset/cardBack0.png" class="card"> 
             <img src="imgAsset/cardBack0.png" class="card">
         </div>
         <div id="u3">
-            <img src="imgAsset/cardBack0.png" class="card"> <br/>
-            <img src="imgAsset/cardBack0.png" class="card"> <br/>
+            <img src="imgAsset/cardBack0.png" class="card"> 
+            <img src="imgAsset/cardBack0.png" class="card"> 
             <img src="imgAsset/cardBack0.png" class="card">
         </div>
         <!-- not really a game mat, but its the center of the table -->
         <div id="gameMat">
             <div> 
                 <!-- facedown -->
-                <img src="imgAsset/cardBack0.png" id="fd" onclick="playerDrawsACard('f')">
+                <img src="imgAsset/cardBack0.png" id="fd" onclick="playerDrawsACard(0)">
             </div>
             <div> 
                 <!-- disco -->
-                <img src="imgAsset/1-1.png" id="disco" onclick="playerDrawsACard('d')">
+                <img src="imgAsset/1-1.png" id="disco" onclick="playerDrawsACard(1)">
             </div>
         </div>
         <!-- as of right now, i have gone back against this idea; the color highlights seem to be good enough

@@ -38,31 +38,19 @@ Stack.prototype = Array.prototype;
 //I dont hink its most effective to create a new set of objects for ai
 //this will serve as the generic ai because its the easiest
 Stack.prototype.wildcard = function() {
-    //really hoping this refers to the stack that calls it
-    let ind = this.seat;
-    var pile = 0;
-    //tbh im not actually sure why its an or here, but it seems to produce the results i want
-    if (checkHandVal(players[ind])  < 15 ) {
-        if (discoPile.length != 0) {
-            pile = drawRando(0,1);
-            switch(pile) {
-                case(0):
-                    pile = "f";
-                    break;
-                case(1):
-                    pile = "d";
-                    break;
-            }
+    var num = this.seat
+    if (this.getSum() < 70) {
+        if (discoPile.length) {
+            drawACard(num, drawRando(0,1) );
         } else {
-            pile = "f";
+            drawACard(num, 0 );
         }
-        var discord = drawRando(0,3);
-        // queueAction(ind, "r" ,pile);
-        // queueAction(ind, "a", "d", drawRando(0,3));
-        // pushTurn();
-    } else {
-        // alert(this.seat + " HAD KNOCKED");
-        // knock(ind);
+        var firstDel = setTimeout(function() {
+            discardACard(num, drawRando(0,3));
+        }, 2000);
+        var nextDel = setTimeout(function(){
+            pushTurn();
+        }, 4000);
     }
 }
 Stack.prototype.shuffle = function() {
@@ -85,7 +73,16 @@ Stack.prototype.getSum = function() {
         }
         sumBySuit[this[n].suit] += baseVal;
     }
-    return(sumBySuit);
+
+    var max = 0;
+    var soit = -1;
+    for (var n = 0; n != 3; n++) {
+        if (sumBySuit[n] > max) {
+            max = sumBySuit[n]
+            soit = n;
+        }
+    }
+    return(max);
 }
 
 
@@ -100,8 +97,9 @@ players[1].bot = Stack.prototype.wildcard;
 players[2].bot = Stack.prototype.wildcard;
 players[3].bot = Stack.prototype.wildcard;
 
-for (var n = 0; n != 3; n++) {
+for (var n = 0; n != 4; n++) {
     players[n].strikes = 0;
+    players[n].seat = n;
 }
 
 
@@ -130,7 +128,6 @@ function rebootBoard() {
         for (var n = 0; n != 3; n++) {
             players[aUser].push(drawPile.shift());
         }
-        players[aUser].seat = aUser;
     }
 
     //not quite belonging here, but it belongs here
@@ -139,20 +136,6 @@ function rebootBoard() {
 
 
 //some random untilities 
-
-function checkHandVal(someStack) {
-    var vals = someStack.getSum();
-    var max = 0;
-    var soit = -1;
-    for (var n = 0; n != vals.length; n++) {
-        if (vals[n] > max) {
-            max = vals[n]
-            soit = n;
-        }
-    }
-    return(max);
-}
-
 function drawRando(low, high) {
     var diff = (high - (low - 1));
     var rando = Math.ceil( Math.random() * diff) + (low - 1) ;
