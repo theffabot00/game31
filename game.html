@@ -12,10 +12,12 @@
             //so id like to keep it closer to the "front"
             function playerDrawsACard(pileName) {
                 if (playerTurn == 0 && players[0].length != 4) {
+                    playerKnock.style.display = 'none';
                     if (pileName) {
                         if (!discoPile.length) 
                             return;
                         players[0].push(discoPile.shift());
+                        updateDisco();
                     } else {
                         players[0].push(drawPile.shift());
                     }
@@ -28,12 +30,32 @@
                     discoPile.unshift(players[0].splice(inx,1)[0]);
                     updateDisco();
                     updateHand(0,true);
+                    if (knocker != -6) {
+                        greenify(0);
+                    }
                     pushTurn();
                 }
             }
+            function grandStart() {
+                //in case you couldnt 100% tell
+                //ive come to really like setTimeout
+                notifBar = document.getElementById("comet");
+                var nextPlayer = dealer + 1;
+                if (nextPlayer == 4)
+                    nextPlayer == 0;
+                notif("PLAYER " + dealer + " IS DEALING! " + nextPlayer + " WILL MOVE FIRST!");
+                var someDel = setTimeout(function() {
+                    rebootBoard();
+                    reflectedInit();
+                    inYourSights();
+                }, 2500);
+
+
+            }
         </script>
     </head>
-    <body onload="rebootBoard();inYourSights();reflectedInit();">
+    <!--  -->
+    <body onload="grandStart();">
         <!-- grill me for these id names -->
         <div id="u0"> 
             <img src="imgAsset/1-1.png" class="card">
@@ -64,13 +86,13 @@
                 <img src="imgAsset/1-1.png" id="disco" onclick="playerDrawsACard(1)">
             </div>
         </div>
-        <!-- as of right now, i have gone back against this idea; the color highlights seem to be good enough
+        <!-- as of right now, i have gone back against this idea; the color highlights seem to be good enough -->
         <div id="comet">
-            <!-- symbolic because its a butchered version of comment AND the box is supposed to appear once in a while
-            LOREM IPSUM <br/>
+            <!-- symbolic because its a butchered version of comment AND the box is supposed to appear once in a while -->
+            
         </div>
-        -->
-        <div onclick="knock(0)" id="endRound">
+        
+        <div onclick="knock(0)" id="pKnock">
             KNOCK
         </div>
     </body>

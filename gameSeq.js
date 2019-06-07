@@ -12,14 +12,16 @@
  * 
 */
 
+dealer = drawRando(0,3);
+roundNum = 1;
 //dont ask me why ive named it this and not init
 function inYourSights() {
     faceDown = document.getElementById('fd');
     discoUp = document.getElementById('disco');
 
-    dealerA = drawRando(0,3);
-    playerTurn = dealerA;
-    pushTurn(dealerA);
+    
+    playerTurn = dealer;
+    pushTurn(dealer);
     
 }
 
@@ -77,11 +79,27 @@ function discardACard(user, card) { //2000 MS TO COMPLETE
                 "p":4,
                 "c":1
             });
+            if (knocker != -6) {
+                greenify(user);
+            }
         },1000);
     }
 }
 
-
+//im realizing now that 
+//since i keep using user as a param so much
+//i honestly couldve made all of the functions within classes
+//but im not motivated to restart a third time
+function knock(user) {
+    if (knocker == -6) {
+        knocker = user;
+        playerKnock.style.display = "none";
+    }
+    var someDel = setTimeout(function() {
+        greenify(user);
+        pushTurn();
+    }, 1000);
+}
 
 
 //what in the name of shenanigans is happening here??
@@ -89,8 +107,39 @@ function pushTurn(previousTurnIndex = playerTurn) {
     playerTurn = previousTurnIndex + 1;
     if (playerTurn == 4) {
         playerTurn = 0;
-    } else {
+    }
+    if (playerTurn == knocker) {
+        //end the round here
+        alert('round end');
+        endRound();
+        return;
+    }
+    if (playerTurn) {
         players[playerTurn].bot();
+    } 
+    if (playerTurn == 0 && knocker == -6) {
+        playerKnock.style.display = 'block';
     }
 }
+
+
+function endRound() {
+    updateScreen(true);
+    var sums = [
+        players[0].getSum(),
+        players[1].getSum(),
+        players[2].getSum(),
+        players[3].getSum()
+    ]; 
+    
+    var someDel = setTimeout(function() {
+        roundNum++;
+        dealer++;
+        if (dealer == 4) {
+            dealer = 0;
+        }
+        rebootBoard();
+    }, 2500);
+}
+
 

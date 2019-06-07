@@ -9,17 +9,20 @@ function reflectedInit() {
     ];
     cardDrop = document.getElementById("disco");
     startEnd = document.getElementById("endRound");
+    //im moving the initializing of the notif bar
 
+    playerKnock = document.getElementById('pKnock');
     updateScreen();
+    updateHand(0, true);
 }
 
 
 
 
-function updateScreen() {
+function updateScreen(reveal = false) {
     //reserved for the final
     for (var n = 0; n != 4; n++) {
-        updateHand(n,true);
+        updateHand(n,reveal);
     }
     updateDisco();
 }
@@ -145,9 +148,29 @@ function appraiseCard(user, location, time = 1000) {
 
 }
 
+function greenify(user) {
+    var field = hands[user].getElementsByTagName("img");
+    for (var n = 0; n != 3; n++) {
+        field[n].classList.add('setCard');
+    }
+}
 
+function redden(user) {
+    var strucken = players[user].strikes;
+    hands[user].style.backgroundColor = "rgba(255,0,0," + (strucken * .5) + ");";
+}
 
+//im not actually sure if this is necessary
+notifId = 0;
 
+function notif(msg, time = 2500) {
+    notifBar.style.display = "block";
+    notifBar.innerHTML = msg;
+    notifId = setTimeout(function() {
+        notifBar.innerHTML = "";
+        notifBar.style.display = "none";
+    },time);
+}
 
 //weakwilled will here! this is from the old code
 //AHAHAHA ME FROM 10 MINUTES AGO

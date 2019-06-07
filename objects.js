@@ -39,7 +39,7 @@ Stack.prototype = Array.prototype;
 //this will serve as the generic ai because its the easiest
 Stack.prototype.wildcard = function() {
     var num = this.seat
-    if (this.getSum() < 70) {
+    if (this.getSum() < 10 || knocker != -6) {
         if (discoPile.length) {
             drawACard(num, drawRando(0,1) );
         } else {
@@ -51,6 +51,8 @@ Stack.prototype.wildcard = function() {
         var nextDel = setTimeout(function(){
             pushTurn();
         }, 4000);
+    } else {
+        knock(num);
     }
 }
 Stack.prototype.shuffle = function() {
@@ -73,10 +75,19 @@ Stack.prototype.getSum = function() {
         }
         sumBySuit[this[n].suit] += baseVal;
     }
-
+    var zeroes = 0;
     var max = 0;
+    for (var n = 0; n != 4; n++) {
+        if (sumBySuit[n] == 0) {
+            zeroes++;
+        }
+    }
+    //the weird condition
+    if (zeroes == 3) {
+        max = 30;
+    }
     var soit = -1;
-    for (var n = 0; n != 3; n++) {
+    for (var n = 0; n != 4; n++) {
         if (sumBySuit[n] > max) {
             max = sumBySuit[n]
             soit = n;
@@ -130,8 +141,7 @@ function rebootBoard() {
         }
     }
 
-    //not quite belonging here, but it belongs here
-    knockingPlayer = -6;
+    knocker = -6;
 }
 
 

@@ -22,10 +22,16 @@
 }
 
 #u0 {
-    width:100%;
+    width:calc(6.944vw * 5);
+    left:calc(50vw - (6.944vw * 2.5));
     position:fixed;
     bottom:0px;
     text-align:center;
+
+    /* border-bottom-style: solid;
+    border-bottom-width: 4px;
+    border-bottom-color:red; */
+    
 }
 
 #u1 {
@@ -37,10 +43,12 @@
     /* but left is still kinda relative to the post translform location
     which means i need a negative left */
     left:calc((-1.5 * 6.944vw) + 5vw);
+
 }
 
 #u2 {
-    width:100%;
+    width:calc(6.944vw * 5);
+    left:calc(50vw - (6.944vw * 2.5));
     position:fixed;
     text-align:center;
 }
@@ -51,6 +59,7 @@
     top:calc(50vh - 6.944vw * 1.5); 
 
     right:calc((-1.5 * 6.944vw) + 5vw);
+
 }
 
 #comet {
@@ -64,7 +73,7 @@
     margin-top:12vh;
 }
 
-#endRound {
+#pKnock {
     position:absolute;
     bottom:8vh;
     right:4vw;
