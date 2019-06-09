@@ -42,12 +42,18 @@
                 notifBar = document.getElementById("comet");
                 var nextPlayer = dealer + 1;
                 if (nextPlayer == 4)
-                    nextPlayer == 0;
+                    nextPlayer = 0;
+                while (players[nextPlayer].strikes == 3) {
+                    nextPlayer++
+                    if (nextPlayer == 4)
+                        nextPlayer = 0;
+                }
                 notif("PLAYER " + dealer + " IS DEALING! " + nextPlayer + " WILL MOVE FIRST!");
                 var someDel = setTimeout(function() {
-                    rebootBoard();
                     reflectedInit();
+                    rebootBoard();
                     inYourSights();
+                    updateHand(0,true);
                 }, 2500);
 
 

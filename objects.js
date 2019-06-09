@@ -39,7 +39,7 @@ Stack.prototype = Array.prototype;
 //this will serve as the generic ai because its the easiest
 Stack.prototype.wildcard = function() {
     var num = this.seat
-    if (this.getSum() < 10 || knocker != -6) {
+    if (this.getSum() < 21 || knocker != -6) {
         if (discoPile.length) {
             drawACard(num, drawRando(0,1) );
         } else {
@@ -116,23 +116,28 @@ for (var n = 0; n != 4; n++) {
 
 //im writing this in advance; unsure if this is necessary
 function rebootBoard() {
+
     drawPile = new Stack();
     for (var v = 1; v != 14; v++) {
         for (var s = 0; s != 4; s++) {
             drawPile.push( new Card(s, v) );
         }
     }
+
     drawPile.shuffle();
+
     discoPile = new Stack();
 
     //clean out hands
+
     for (var aUser = 0; aUser != players.length; aUser++) {
-        if (players[aUser].length) {
-            for (var n = 0; n != aUser.length; n++) {
-                players[aUser].pop();
-            }
+        
+        while (players[aUser].length) {
+            players[aUser].pop();
         }
+        
     }
+
 
     //refill
     for (var aUser = 0; aUser != players.length; aUser++) {
@@ -142,6 +147,7 @@ function rebootBoard() {
     }
 
     knocker = -6;
+    updateScreen();
 }
 
 

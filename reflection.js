@@ -76,7 +76,11 @@ function updateHand(seat, reveal) {
     } else {
         for (var n = 0; n != players[seat].length; n++) {
             var nImg = document.createElement("img");
-            nImg.src = "imgAsset/cardBack0.png";
+            if (players[seat].strikes == 3) {
+                nImg.src = "imgAsset/cardBack4.jpg";
+            } else {
+                nImg.src = "imgAsset/cardBack0.png";
+            }
             nImg.classList.add("card");
             // cInx is a "parameter"
             nImg.cInx = n;
@@ -157,7 +161,8 @@ function greenify(user) {
 
 function redden(user) {
     var strucken = players[user].strikes;
-    hands[user].style.backgroundColor = "rgba(255,0,0," + (strucken * .5) + ");";
+    //really hoping i dont need to add any mroe style to this
+    hands[user].setAttribute('style','background-color:rgba(255,0,0,' + (strucken * .333) + ')');
 }
 
 //im not actually sure if this is necessary

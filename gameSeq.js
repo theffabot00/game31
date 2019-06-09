@@ -11,6 +11,14 @@
  * 
  * 
 */
+//update: its 6/9
+//the longer i read this document the more i realize i havent finished readingit
+//i i currently have to implement
+//2
+//more fringe cases
+
+
+
 
 dealer = drawRando(0,3);
 roundNum = 1;
@@ -104,15 +112,37 @@ function knock(user) {
 
 //what in the name of shenanigans is happening here??
 function pushTurn(previousTurnIndex = playerTurn) {
+    if (players[previousTurnIndex].getSum() == 31) {
+        alert('WHHEEAAOOOO GOLDEN THIRTY ONE');
+
+        endRound(previousTurnIndex, true);
+            
+
+        return;
+
+    }
+
     playerTurn = previousTurnIndex + 1;
+    //repeat code but idk how to compress so its going to stay here
     if (playerTurn == 4) {
         playerTurn = 0;
     }
+    while (players[playerTurn].strikes == 3) {
+        playerTurn++;
+        if (playerTurn == 4) {
+            playerTurn = 0;
+        }
+        
+    }
+
     if (playerTurn == knocker) {
         //end the round here
-        alert('round end');
+        notif("ROUND END!");
+
         endRound();
+            
         return;
+
     }
     if (playerTurn) {
         players[playerTurn].bot();
@@ -122,24 +152,70 @@ function pushTurn(previousTurnIndex = playerTurn) {
     }
 }
 
-
-function endRound() {
+//i decide to put a user parameter in everything 
+//mfw i realize i should restart and make everything a method
+//pepeHands
+function endRound(user, has31 = false) {
     updateScreen(true);
-    var sums = [
-        players[0].getSum(),
-        players[1].getSum(),
-        players[2].getSum(),
-        players[3].getSum()
-    ]; 
-    
-    var someDel = setTimeout(function() {
+    var extraTime = 0;
+    if (has31) {
+        for (var n = 0; n != 4; n++) {
+            if (user != n) {
+                players[n].strikes ++;
+                redden(n);
+            }
+        }   
+    } else {
+        //ive very clearly made it not a modular piece so im not going to bother making this modular
+        var sums = [
+            players[0].getSum(),
+            players[1].getSum(),
+            players[2].getSum(),
+            players[3].getSum()
+        ]; 
+        var min = 31;
+        var idx = [];
+        var playersLeft = 0;
+        for (var n = 0; n != 4; n++) {
+            if (players[n].strikes != 3) {
+                playersLeft++;
+                if (sums[n] == min) {
+                    idx.push(n);
+                }
+                if (sums[n] < min) {
+                    min = sums[n];
+                    idx = [n];
+                }
+            }
+
+        }
+        //fringeass cases with a million ands yikes
+        if (playersLeft == 2 && idx.length == 2 && players[idx[0]].strikes == 2 && players[idx[1]].strikes == 2) {
+            for (var n = 0; n != idx.length; n++) {
+                players[idx[n]].strikes--;
+                redden(idx[n]);
+            }
+        } else {
+            for (var n = 0; n != idx.length; n++) {
+                players[idx[n]].strikes++;
+                redden(idx[n]);
+            }
+        }
+
+        //WHAT???
+        extraTime = 5500;
+        var awildDel = setTimeout(function() {
+            notif("PLAYER 0: " + sums[0] + "; <br/>PLAYER 1: " + sums[1] + "; <br/>PLAYER 2: "+ sums[2] + "; <br/>PLAYER 3: " + sums[3] + ";", 8000 );
+        },4000);
+    }
+    var anotherDel = setTimeout(function() {
         roundNum++;
         dealer++;
         if (dealer == 4) {
             dealer = 0;
         }
-        rebootBoard();
-    }, 2500);
+        grandStart();
+    }, (2500 + extraTime) * 2);
 }
 
 
