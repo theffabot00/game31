@@ -4,6 +4,7 @@
         <title> 三十一 </title>
         <link rel="stylesheet" href="game.css" />
         <script src="objects.js" ></script>
+        <script src="extendedObjects.js"> </script>
         <script src="reflection.js"> </script>
         <script src="gameSeq.js"> </script>
         <script>
@@ -40,6 +41,7 @@
                 //in case you couldnt 100% tell
                 //ive come to really like setTimeout
                 notifBar = document.getElementById("comet");
+                cycleNum = 1;
                 var nextPlayer = dealer + 1;
                 if (nextPlayer == 4)
                     nextPlayer = 0;

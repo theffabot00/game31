@@ -114,18 +114,17 @@ function knock(user) {
 function pushTurn(previousTurnIndex = playerTurn) {
     if (players[previousTurnIndex].getSum() == 31) {
         alert('WHHEEAAOOOO GOLDEN THIRTY ONE');
-
         endRound(previousTurnIndex, true);
-            
-
         return;
-
     }
 
     playerTurn = previousTurnIndex + 1;
     //repeat code but idk how to compress so its going to stay here
     if (playerTurn == 4) {
         playerTurn = 0;
+    }
+    if (playerTurn == dealer) {
+        cycleNum++;
     }
     while (players[playerTurn].strikes == 3) {
         playerTurn++;
@@ -157,6 +156,7 @@ function pushTurn(previousTurnIndex = playerTurn) {
 //pepeHands
 function endRound(user, has31 = false) {
     updateScreen(true);
+    roundNum++;
     var extraTime = 0;
     if (has31) {
         for (var n = 0; n != 4; n++) {
@@ -191,9 +191,9 @@ function endRound(user, has31 = false) {
         }
         //fringeass cases with a million ands yikes
         if (playersLeft == 2 && idx.length == 2 && players[idx[0]].strikes == 2 && players[idx[1]].strikes == 2) {
-            for (var n = 0; n != idx.length; n++) {
-                players[idx[n]].strikes--;
-                redden(idx[n]);
+            for (var n = 0; n != 4; n++) {
+                players[n].strikes--;
+                redden(n);
             }
         } else {
             for (var n = 0; n != idx.length; n++) {

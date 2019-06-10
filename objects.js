@@ -34,27 +34,6 @@ function Stack() {
 }
 
 Stack.prototype = Array.prototype;
-//i dont know what to do here;
-//I dont hink its most effective to create a new set of objects for ai
-//this will serve as the generic ai because its the easiest
-Stack.prototype.wildcard = function() {
-    var num = this.seat
-    if (this.getSum() < 21 || knocker != -6) {
-        if (discoPile.length) {
-            drawACard(num, drawRando(0,1) );
-        } else {
-            drawACard(num, 0 );
-        }
-        var firstDel = setTimeout(function() {
-            discardACard(num, drawRando(0,3));
-        }, 2000);
-        var nextDel = setTimeout(function(){
-            pushTurn();
-        }, 4000);
-    } else {
-        knock(num);
-    }
-}
 Stack.prototype.shuffle = function() {
     var tDeck = new Stack();
     while(this.length) {
@@ -86,11 +65,11 @@ Stack.prototype.getSum = function() {
     if (zeroes == 3) {
         max = 30;
     }
-    var soit = -1;
+    // var soit = -1;
     for (var n = 0; n != 4; n++) {
         if (sumBySuit[n] > max) {
             max = sumBySuit[n]
-            soit = n;
+            // soit = n;
         }
     }
     return(max);
@@ -104,9 +83,8 @@ Stack.prototype.getSum = function() {
  */
 
 players = [new Stack(), new Stack(), new Stack(), new Stack()];
-players[1].bot = Stack.prototype.wildcard;
-players[2].bot = Stack.prototype.wildcard;
-players[3].bot = Stack.prototype.wildcard;
+//bots have been moved
+//to the other file
 
 for (var n = 0; n != 4; n++) {
     players[n].strikes = 0;
@@ -155,10 +133,27 @@ function rebootBoard() {
 function drawRando(low, high) {
     var diff = (high - (low - 1));
     var rando = Math.ceil( Math.random() * diff) + (low - 1) ;
+
     return(rando);
 }
 
-
+function getMax(ar) {
+    var m = -Infinity;
+    var loc = [];
+    for (var n = 0; n != ar.length; n++) {
+        if (m < ar[n]) {
+            m = ar[n];
+        }
+    }
+    var dummy = ar.slice();
+    while (dummy.indexOf(m) > 0) {
+        loc.push(dummy.indexOf(m));
+    }
+    return({
+        "max":m,
+        "loc":loc
+    });
+}
 
 
 
