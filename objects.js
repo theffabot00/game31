@@ -42,37 +42,43 @@ Stack.prototype.shuffle = function() {
     }
     this.push.apply(this,tDeck);
 }
-Stack.prototype.getSum = function() {
+Stack.prototype.getSum = function(toRet = 0) {
     var sumBySuit = [0, 0, 0, 0];
+    //hmmm whats happening here??
+    //maybe i just wanna flex my dumb ideas
+    var vals = {};
+    var max = -Infinity;
     for (var n = 0; n != this.length; n++) {
         var baseVal = this[n].val;
+        if (vals[baseVal] == undefined ) {
+            vals[baseVal] = 1;
+        } else {
+            vals[baseVal]++;
+        }
+        
         if (baseVal > 10) {
             baseVal = 10;
         } 
         if (baseVal == 1) {
             baseVal = 11;
         }
+        
         sumBySuit[this[n].suit] += baseVal;
     }
-    var zeroes = 0;
-    var max = 0;
-    for (var n = 0; n != 4; n++) {
-        if (sumBySuit[n] == 0) {
-            zeroes++;
+    for (val in vals) {
+        if (vals[val] >= 3) {
+            max = 30;
         }
     }
-    //the weird condition
-    if (zeroes == 3) {
-        max = 30;
-    }
-    // var soit = -1;
+
     for (var n = 0; n != 4; n++) {
         if (sumBySuit[n] > max) {
             max = sumBySuit[n]
             // soit = n;
         }
     }
-    return(max);
+    var data = [max, sumBySuit, vals];
+    return(data[toRet]);
 }
 
 
@@ -155,5 +161,22 @@ function getMax(ar) {
     });
 }
 
+function getMin(ar) {
+    var m = Infinity;
+    var loc = [];
+    for (var n = 0; n != ar.length; n++) {
+        if (m > ar[n]) {
+            m = ar[n];
+        }
+    }
+    var dummy = ar.slice();
+    while (dummy.indexOf(m) > 0) {
+        loc.push(dummy.indexOf(m));
+    }
+    return({
+        "min":m,
+        "loc":loc
+    });
+}
 
 
